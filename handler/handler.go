@@ -3,7 +3,7 @@ import (
     "net/http"
     "github.com/go-chi/chi"
     "github.com/go-chi/render"
-    "gitlab.com/idoko/bucketeer/db"
+    "github.com/jasanchez1/Dpricing/db"
 )
 var dbInstance db.Database
 func NewHandler(db db.Database) http.Handler {

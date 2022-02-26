@@ -2,8 +2,8 @@ package main
 import (
     "context"
     "fmt"
-    "gitlab.com/idoko/dpricing/db"
-    "gitlab.com/idoko/dpricing/handler"
+    "github.com/jasanchez1/Dpricing/db"
+    "github.com/jasanchez1/Dpricing/handler"
     "log"
     "net"
     "net/http"

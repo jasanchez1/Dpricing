@@ -6,8 +6,8 @@ import (
     "strconv"
     "github.com/go-chi/chi"
     "github.com/go-chi/render"
-    "gitlab.com/idoko/bucketeer/db"
-    "gitlab.com/idoko/bucketeer/models"
+    "github.com/jasanchez1/Dpricing/db"
+    "github.com/jasanchez1/Dpricing/models"
 )
 var itemIDKey = "itemID"
 func items(router chi.Router) {
@@ -92,8 +92,25 @@ func deleteItem(w http.ResponseWriter, r *http.Request) {
         return
     }
 }
+
 func updateItem(w http.ResponseWriter, r *http.Request) {
-    itemId := r.Context().Value(itemIDKey).(int)
-    itemData := models.Item{}
-    if err := render.Bind(r, &itemData); err != nil {
-        render.Render(w, r, ErrBadRequest)
+	itemId := r.Context().Value(itemIDKey).(int)
+	itemData := models.Item{}
+	if err := render.Bind(r, &itemData); err != nil {
+		render.Render(w, r, ErrBadRequest)
+		return
+	}
+	item, err := dbInstance.UpdateItem(itemId, itemData)
+	if err != nil {
+		if err == db.ErrNoMatch {
+			render.Render(w, r, ErrNotFound)
+		} else {
+			render.Render(w, r, ServerErrorRenderer(err))
+		}
+		return
+	}
+	if err := render.Render(w, r, &item); err != nil {
+		render.Render(w, r, ServerErrorRenderer(err))
+		return
+	}
+}
