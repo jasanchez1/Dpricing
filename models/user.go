@@ -5,28 +5,28 @@ import (
 	"net/http"
 )
 
-type Item struct {
+type User struct {
 	ID int `json:"id"`
 	Name string `json:"name"`
 	Description string `json:"description"`
 	CreatedAt string `json:"created_at"`
 }
 
-type ItemList struct {
-	Items []Item `json:"items"`
+type UserList struct {
+	Users []User `json:"users"`
 }
 
-func (i *Item) Bind(r *http.Request) error {
+func (i *User) Bind(r *http.Request) error {
 	if i.Name == "" {
 		return fmt.Errorf("name is a required field")
 	}
 	return nil
 }
 
-func (*ItemList) Render(w http.ResponseWriter, r *http.Request) error {
+func (*UserList) Render(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func (*Item) Render(w http.ResponseWriter, r *http.Request) error {
+func (*User) Render(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
