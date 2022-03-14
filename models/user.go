@@ -3,13 +3,15 @@ package models
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
-	ID int `json:"id"`
-	Name string `json:"name"`
-	Description string `json:"description"`
-	CreatedAt string `json:"created_at"`
+	UserID      uuid.UUID `json:"user_id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	CreatedAt   string    `json:"created_at"`
 }
 
 type UserList struct {
